@@ -1,0 +1,97 @@
+[*]
+[*] GTKWave Analyzer v3.3.64 (w)1999-2014 BSI
+[*] Tue Feb 10 14:34:45 2015
+[*]
+[dumpfile] "/home/izi/Workplace/redpitaya-edu/FPGA/release1/fpga/code/sim/red_pitaya_scope_tb.vcd"
+[dumpfile_mtime] "Tue Feb 10 14:34:25 2015"
+[dumpfile_size] 3252352
+[savefile] "/home/izi/Workplace/redpitaya-edu/FPGA/release1/fpga/code/sim/red_pitaya_scope_tb.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-22.542147 17970000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] red_pitaya_scope_tb.
+[sst_width] 43
+[signals_width] 255
+[sst_expanded] 0
+[sst_vpaned_height] 211
+@24
+red_pitaya_scope_tb.RSZ[31:0]
+@28
+red_pitaya_scope_tb.TP_ADC
+red_pitaya_scope_tb.TP_SYS
+@800200
+-ADC
+@28
+red_pitaya_scope_tb.adc_clk
+red_pitaya_scope_tb.adc_rstn
+@22
+red_pitaya_scope_tb.adc_a[13:0]
+red_pitaya_scope_tb.adc_b[13:0]
+@1000200
+-ADC
+@800200
+-ADC dbg
+@24
+red_pitaya_scope_tb.adc_cyc[31:0]
+@10420
+red_pitaya_scope_tb.adc_a[13:0]
+@20000
+-
+@10420
+red_pitaya_scope_tb.adc_b[13:0]
+@20000
+-
+@1000200
+-ADC dbg
+@800200
+-SYS
+@28
+red_pitaya_scope_tb.sys_clk
+red_pitaya_scope_tb.sys_rstn
+red_pitaya_scope_tb.sys_ack
+@22
+red_pitaya_scope_tb.sys_addr[31:0]
+@28
+red_pitaya_scope_tb.sys_err
+@22
+red_pitaya_scope_tb.sys_rdata[31:0]
+@28
+red_pitaya_scope_tb.sys_ren
+@22
+red_pitaya_scope_tb.sys_sel[3:0]
+red_pitaya_scope_tb.sys_wdata[31:0]
+@28
+red_pitaya_scope_tb.sys_wen
+@1000200
+-SYS
+@22
+red_pitaya_scope_tb.adc_cyc[31:0]
+red_pitaya_scope_tb.scope.ext_trig_debn[19:0]
+red_pitaya_scope_tb.scope.ext_trig_debp[19:0]
+@28
+red_pitaya_scope_tb.scope.ext_trig_dn[1:0]
+red_pitaya_scope_tb.scope.ext_trig_dp[1:0]
+red_pitaya_scope_tb.scope.ext_trig_in[2:0]
+red_pitaya_scope_tb.scope.ext_trig_n
+red_pitaya_scope_tb.scope.ext_trig_p
+@22
+red_pitaya_scope_tb.scope.set_trig_src[3:0]
+@28
+red_pitaya_scope_tb.scope.adc_trig
+@22
+red_pitaya_scope_tb.scope.adc_dly_cnt[31:0]
+@28
+red_pitaya_scope_tb.scope.adc_dly_do
+@22
+red_pitaya_scope_tb.scope.set_dly[31:0]
+@28
+red_pitaya_scope_tb.scope.adc_arm_do
+@29
+red_pitaya_scope_tb.scope.adc_we
+@22
+red_pitaya_scope_tb.scope.adc_wp[13:0]
+red_pitaya_scope_tb.scope.adc_wp_cur[13:0]
+red_pitaya_scope_tb.scope.adc_wp_trig[13:0]
+[pattern_trace] 1
+[pattern_trace] 0
