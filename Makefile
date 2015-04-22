@@ -12,7 +12,7 @@ VIVADO = vivado -nolog -nojournal -mode batch
 HSI = hsi -nolog -nojournal -mode batch
 RM = rm -rf
 
-UBOOT_TAG = xilinx-v2014.3
+UBOOT_TAG = xilinx-v2014.4
 LINUX_TAG = xilinx-v2014.3
 DTREE_TAG = xilinx-v2014.4
 
@@ -31,48 +31,48 @@ DTREE_URL = https://github.com/Xilinx/device-tree-xlnx/archive/$(DTREE_TAG).tar.
 LINUX_CFLAGS = "-O2 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard"
 UBOOT_CFLAGS = "-O2 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard"
 
-.PRECIOUS: fpga/syn/out/red_pitaya.bit fpga/hsi/fsbl/executable.elf tmp/%.tree/system.dts
+.PRECIOUS: fpga/syn/out/red_pitaya.bit fpga/hsi/fsbl/executable.elf fpga/hsi/dts/system.dts
 
 all: boot.bin uImage devicetree.dtb
 
-$(UBOOT_TAR):
+tmp:
+	mkdir tmp
+
+$(UBOOT_TAR): tmp
 	curl -L $(UBOOT_URL) -o $@
 
-$(LINUX_TAR):
+$(LINUX_TAR): tmp
 	curl -L $(LINUX_URL) -o $@
 
-$(DTREE_TAR):
+$(DTREE_TAR): tmp
 	curl -L $(DTREE_URL) -o $@
 
 $(UBOOT_DIR): $(UBOOT_TAR)
-	mkdir $@
+	mkdir -p $@
 	tar zxf $< --strip-components=1 --directory=$@
 	patch -d tmp -p 0 < patches/u-boot-xlnx-$(UBOOT_TAG).patch
 	cp patches/zynq_red_pitaya.h $@/include/configs
 	cp patches/u-boot-lantiq.c $@/drivers/net/phy/lantiq.c
 
 $(LINUX_DIR): $(LINUX_TAR)
-	mkdir $@
+	mkdir -p $@
 	tar zxf $< --strip-components=1 --directory=$@
 	patch -d tmp -p 0 < patches/linux-xlnx-$(LINUX_TAG).patch
 	cp patches/linux-lantiq.c $@/drivers/net/phy/lantiq.c
 
 $(DTREE_DIR): $(DTREE_TAR)
-	mkdir $@
+	mkdir -p $@
 	tar zxf $< --strip-components=1 --directory=$@
 
 uImage: $(LINUX_DIR)
 	make -C $< mrproper
 	make -C $< ARCH=arm xilinx_zynq_defconfig
-	make -C $< ARCH=arm CFLAGS=$(LINUX_CFLAGS) \
-	  -j $(shell grep -c ^processor /proc/cpuinfo) \
-	  CROSS_COMPILE=arm-xilinx-linux-gnueabi- UIMAGE_LOADADDR=0x8000 uImage
+	make -C $< ARCH=arm CFLAGS=$(LINUX_CFLAGS) -j $(shell grep -c ^processor /proc/cpuinfo) CROSS_COMPILE=arm-xilinx-linux-gnueabi- UIMAGE_LOADADDR=0x8000 uImage
 	cp $</arch/arm/boot/uImage $@
 
 tmp/u-boot.elf: $(UBOOT_DIR)
 	make -C $< arch=ARM zynq_red_pitaya_config
-	make -C $< arch=ARM CFLAGS=$(UBOOT_CFLAGS) \
-	  CROSS_COMPILE=arm-xilinx-linux-gnueabi- all
+	make -C $< arch=ARM CFLAGS=$(UBOOT_CFLAGS) CROSS_COMPILE=arm-xilinx-linux-gnueabi- all
 	cp $</u-boot $@
 
 rootfs.tar.gz:
@@ -87,7 +87,7 @@ devicetree.dtb: uImage fpga/hsi/dts/system.dts
 
 fpga/syn/out/red_pitaya.bit: xilinx
 
-hsi/fsbl/executable.elf: xilinx
+fpga/hsi/fsbl/executable.elf: xilinx
 
 fpga/hsi/dts/system.dts: xilinx $(DTREE_DIR)
 
@@ -96,5 +96,6 @@ xilinx: $(DTREE_DIR)
 
 clean:
 	$(RM) uImage fw_printenv boot.bin devicetree.dtb tmp
+	make -C fpga clean
 	$(RM) .Xil usage_statistics_webtalk.html usage_statistics_webtalk.xml
 
