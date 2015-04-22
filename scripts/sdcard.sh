@@ -25,7 +25,7 @@ mkfs.ext4 -F -j $root_dev
 
 # Mount file systems
 
-mkdir $boot_dir $root_dir
+mkdir -p $boot_dir $root_dir
 
 mount $boot_dev $boot_dir
 mount $root_dev $root_dir
@@ -38,7 +38,7 @@ cp boot.bin devicetree.dtb uEnv.txt uImage $boot_dir
 
 test -f $root_tar || curl -L $root_url -o $root_tar
 
-tar zxf $root_tar --directory=$root_dir
+tar -xzf $root_tar --directory=$root_dir
 
 # Add missing configuration files and packages
 
