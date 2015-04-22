@@ -73,6 +73,7 @@ uImage: $(LINUX_DIR)
 tmp/u-boot.elf: $(UBOOT_DIR)
 	make -C $< arch=ARM zynq_red_pitaya_config
 	make -C $< arch=ARM CFLAGS=$(UBOOT_CFLAGS) CROSS_COMPILE=arm-xilinx-linux-gnueabi- all
+	make -C $< arch=ARM HOSTCC=arm-xilinx-linux-gnueabi-gcc HOSTSTRIP=arm-xilinx-linux-gnueabi-strip env
 	cp $</u-boot $@
 
 rootfs.tar.gz:
